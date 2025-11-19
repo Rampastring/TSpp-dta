@@ -30,7 +30,6 @@
 #include "always.h"
 #include "fatal.h"
 #include <cassert>
-#include <cstdlib>
 
 
 extern bool TSPP_IgnoreAllAsserts;

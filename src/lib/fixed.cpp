@@ -33,11 +33,10 @@
  *
  ******************************************************************************/
 #include "fixed.h"
-
-#include <cstdio>
-#include <cstdlib>
-#include <cstring>
-#include <cctype>
+#include <ctype.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 
 const fixed fixed::_1_2(1, 2); // 1/2
