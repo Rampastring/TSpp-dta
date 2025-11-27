@@ -79,7 +79,7 @@ public:
      *  Capacity
      */
     static constexpr size_type capacity() noexcept { return N; }
-    constexpr size_type size() const noexcept { return std::char_traits<char>::length(Data); }
+    constexpr size_type size() const noexcept { return cstring_length(Data); }
     constexpr bool empty() const noexcept { return Data[0] == '\0'; }
 
     /**
@@ -191,6 +191,17 @@ public:
     constexpr nonstd::string_view substr(size_type pos, size_type count = nonstd::string_view::npos) const noexcept { return nonstd::string_view(*this).substr(pos, count); }
 
 protected:
+    /**
+     *  Custom constexpr strlen
+     */
+    static constexpr size_type cstring_length(const char* s) noexcept
+    {
+        const char* p = s;
+        while (*p) ++p;
+        return static_cast<size_type>(p - s);
+    }
+
+protected:
     char Data[N + 1]; // N visible chars + '\0'
 };
 
@@ -291,7 +302,7 @@ public:
     /**
      *  Length maintenance helper (useful if Data is manipulated directly)
      */
-    constexpr void Recalculate_Length() noexcept { Length = std::char_traits<char>::length(Data); }
+    constexpr void Recalculate_Length() noexcept { Length = Base::cstring_length(Data); }
 
 private:
     size_type Length;
